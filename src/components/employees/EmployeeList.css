@@ -1,0 +1,11 @@
+.employees {
+    display: flex;
+    flex-wrap: wrap;
+    }
+
+.employee {
+    border: 1px dotted blue;
+    margin: 1rem;
+    padding: 5px;
+    background-color: lightblue;
+}
