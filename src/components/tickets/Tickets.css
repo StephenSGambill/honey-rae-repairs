@@ -9,3 +9,15 @@
     padding: 0.7rem;
     margin: 0.5rem; 
 }
+
+.descriptionBox {
+    border-bottom: 1px dashed darkmagenta;
+    margin-bottom: .5rem;
+    padding-bottom: .5rem;
+
+}
+
+.ticket__delete {
+    margin-left: auto;
+    background-color: salmon;
+}
