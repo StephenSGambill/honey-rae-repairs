@@ -1,0 +1,10 @@
+.customers {
+    display: flex;
+    flex-wrap: wrap;
+    }
+
+.customer {
+    margin: 1rem;
+    padding: 5px;
+    background-color: lightblue;
+}

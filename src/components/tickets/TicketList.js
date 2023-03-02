@@ -32,12 +32,7 @@ export const TicketList = ({ searchTermsState }) => {
     //this changes tickets (local transient state) equal to all the tickets in the API database
     useEffect(
         () => {
-            fetch(`http://localhost:8088/serviceTickets?_embed=employeeTickets`)
-                .then(response => response.json())
-                .then((ticketArray) => {
-                    setTickets(ticketArray)
-                })
-                
+            getAllTickets()
             fetch(`http://localhost:8088/employees?_expand=user`)
                 .then(response => response.json())
                 .then((employeeArray) => {
@@ -48,6 +43,15 @@ export const TicketList = ({ searchTermsState }) => {
         // When array is not empty, it is the target state variable
         
     )
+
+    //called from within above useEffect, is passed as a prop to Ticket.js, and used to refresh employee tickets
+    //this is an example of calling a function within a fetch which is itself a fetch, so that the getAll Tickets (as a separate function), can be called from another module
+    const getAllTickets = () => {
+    fetch(`http://localhost:8088/serviceTickets?_embed=employeeTickets`)
+        .then(response => response.json())
+        .then((ticketArray) => {
+            setTickets(ticketArray)
+    })}
 
 
     //checks whether logged in user is staff
@@ -130,7 +134,13 @@ export const TicketList = ({ searchTermsState }) => {
         <article className="tickets">
             {
                 filteredTickets.map(
-                    (ticket) => <Ticket employees={employees} isStaff={honeyUserObject.staff} ticketObject={ticket} key={ticket.id}/>
+                    (ticket) => <Ticket 
+                        employees={employees} 
+                        currentUser={honeyUserObject} 
+                        ticketObject={ticket} 
+                        key={ticket.id}
+                        getAllTickets={getAllTickets}
+                        />
                 )
             }
         </article>
