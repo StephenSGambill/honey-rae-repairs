@@ -1,6 +1,8 @@
 import { Outlet, Route, Routes } from "react-router-dom"
 import { TicketForm } from "../tickets/TicketForm"
 import { TicketList } from "../tickets/TicketList"
+import { Profile } from "../profile/Profile"
+import { TicketEdit } from "../tickets/TicketEdit"
 
 export const CustomerViews = () => {
     return (
@@ -15,8 +17,9 @@ export const CustomerViews = () => {
             }>
                 {/* this is a parent element for two children */}
                 <Route path="tickets" element={<TicketList />} />
-
                 <Route path="ticket/create" element={<TicketForm />} />
+                <Route path="profile" element={<Profile/>} />
+                <Route path="tickets/:ticketId/edit" element={<TicketEdit/>} />
                 
             </Route>
         </Routes>
