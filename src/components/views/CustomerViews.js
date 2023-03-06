@@ -17,7 +17,7 @@ export const CustomerViews = () => {
             }>
                 {/* this is a parent element for two children */}
                 <Route path="tickets" element={<TicketList />} />
-                <Route path="ticket/create" element={<TicketForm />} />
+                <Route path="ticket/create" element={<TicketForm />} /> 
                 <Route path="profile" element={<Profile/>} />
                 <Route path="tickets/:ticketId/edit" element={<TicketEdit/>} />
                 

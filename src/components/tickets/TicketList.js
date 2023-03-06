@@ -25,11 +25,7 @@ export const TicketList = ({ searchTermsState }) => {
         [ searchTermsState ]
     )
 
-//The WHOLE PURPOSE of _useEffect_ is to observe the present state of something and do something every time it changes
 
-    //fills a new ticketArray variable using fetch at the localhost database for serviceTickets
-    //pulls permanant state into transient state for usablility
-    //this changes tickets (local transient state) equal to all the tickets in the API database
     useEffect(
         () => {
             getAllTickets()
@@ -39,13 +35,11 @@ export const TicketList = ({ searchTermsState }) => {
                     setEmployees(employeeArray)
                 })
         },
-        [] // When this array is empty, you are observing initial component state
-        // When array is not empty, it is the target state variable
+        [] 
         
     )
 
-    //called from within above useEffect, is passed as a prop to Ticket.js, and used to refresh employee tickets
-    //this is an example of calling a function within a fetch which is itself a fetch, so that the getAll Tickets (as a separate function), can be called from another module
+    
     const getAllTickets = () => {
     fetch(`http://localhost:8088/serviceTickets?_embed=employeeTickets`)
         .then(response => response.json())
@@ -54,17 +48,13 @@ export const TicketList = ({ searchTermsState }) => {
     })}
 
 
-    //checks whether logged in user is staff
-    //if true, then set filtered to all the tickets
     useEffect(
         () => {
             if (honeyUserObject.staff) {
-                //For employees
                 setFiltered(tickets)
             }
-    //if false (not a staff), then filter all tickets by user id and set filtered to those tickets
+    
             else {
-                //For customers
                 const myTickets = tickets.filter(ticket => ticket.userId === honeyUserObject.id)
                 setFiltered(myTickets)
             }
@@ -73,15 +63,13 @@ export const TicketList = ({ searchTermsState }) => {
 
     )
 
-    //check to see if it in an emergency (default = false)
-    //if it is, then fiter tickets into an array of emergency tickets and set filtered tickets to emergency tickets
     useEffect(
         () => {
             if (emergency) {
                 const emergencyTickets = tickets.filter(ticket => ticket.emergency === true)
                 setFiltered(emergencyTickets)
             }
-    //if not, then set filtered tickets to all tickets 
+   
             else {
                 setFiltered(tickets)
             }
@@ -90,8 +78,6 @@ export const TicketList = ({ searchTermsState }) => {
     )
  
 
-    //check to see if open (default = false)
-    //if it is, then filter all tickets into filtered array
     useEffect(
         () => {
             if (openOnly) {
@@ -100,7 +86,7 @@ export const TicketList = ({ searchTermsState }) => {
                 })
                 setFiltered(openTicketArray)
             }
-    //if not, then set my tickets to specific user using local storage (in browser from login)
+
             else {
                 const myTickets = tickets.filter(ticket => ticket.userId === honeyUserObject.id)
                 setFiltered(myTickets)
@@ -109,11 +95,7 @@ export const TicketList = ({ searchTermsState }) => {
         [openOnly]
     )
 
-    // generate JSX to dispay on current page
-    // abbreviated if/else statement to check if staff and display appropriate buttons
-    //buttons display before list of tickets
-    //if staff, then buttons use to view only emergencies or all
-    //if not staff, then buttons to create a new ticket, show only user open tickets, and show all user's tickets
+
     return <>
         {
             honeyUserObject.staff
